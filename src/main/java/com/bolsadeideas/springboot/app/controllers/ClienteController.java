@@ -50,23 +50,6 @@ public class ClienteController {
 	@GetMapping(value="/uploads/{fileName:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String fileName){
 		
-		Path pathFoto = Paths.get(UPLOADS_FOLDER).resolve(fileName).toAbsolutePath();
-		log.info("pathFoto:" + pathFoto);
-		
-		Resource recurso = null;
-		
-		try {
-			
-			recurso = new UrlResource(pathFoto.toUri());
-			
-			if(!recurso.exists() || !recurso.isReadable()) {
-				throw new RuntimeException("Error, no se puede cargar la imagen: " + pathFoto.toString());
-			}
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; fileName=\""+ recurso.getFilename()+"\"").body(recurso);
 	}
 	
@@ -150,27 +133,7 @@ public class ClienteController {
 				}
 			}
 			
-			String uniqueFileName = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
-			
-			Path routePath = Paths.get(UPLOADS_FOLDER).resolve(uniqueFileName);
-			Path routeAbsolutePath = routePath.toAbsolutePath();
-			
-			log.info("routePath:" + routePath);
-			log.info("routeAbsolutePath:" + routeAbsolutePath);
-			
-			try {
-//				byte[] bytes = foto.getBytes();
-//				Path rutaCompleta = Paths.get(routePath + "//" + cliente.getId()+cliente.getNombre()+".jpg");
-//				Files.write(rutaCompleta, bytes);
-				
-				Files.copy(foto.getInputStream(), routeAbsolutePath);
-				
-				flash.addFlashAttribute("info", "Foto subida correctamente: " + uniqueFileName);
-				
-				cliente.setFoto(uniqueFileName);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			flash.addFlashAttribute("info","Has subido correctamente " + uniqueFileName);
 		}
 		
 		String mensajeFlash = (cliente.getId() != null) ? "Cliente editado con éxito!" : "Cliente creado con éxito!";
