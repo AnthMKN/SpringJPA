@@ -4,9 +4,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.UUID;
 
-
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +37,8 @@ public class ClienteController {
 
 	@Autowired
 	private IClienteService clienteService;
+	
+	private final Logger log= LoggerFactory.getLogger(getClass());
 	
 	@GetMapping(value="/ver/{id}")
 	public String ver(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
@@ -105,14 +108,25 @@ public class ClienteController {
 //			Path directorioRerurso = Paths.get("src//main//resources//static//uploads");
 //			String routePath = directorioRerurso.toFile().getAbsolutePath();
 			
-			String routePath = "C://Temp//uploads";
+			//String routePath = "C://Temp//uploads";
+			String uniqueFileName = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
+			
+			Path routePath = Paths.get("uploads").resolve(uniqueFileName);
+			Path routeAbsolutePath = routePath.toAbsolutePath();
+			
+			log.info("routePath:" + routePath);
+			log.info("routeAbsolutePath:" + routeAbsolutePath);
+			
 			try {
-				byte[] bytes = foto.getBytes();
-				Path rutaCompleta = Paths.get(routePath + "//" + foto.getOriginalFilename());
-				Files.write(rutaCompleta, bytes);
-				flash.addFlashAttribute("info", "Foto subida correctamente" + foto.getOriginalFilename());
+//				byte[] bytes = foto.getBytes();
+//				Path rutaCompleta = Paths.get(routePath + "//" + cliente.getId()+cliente.getNombre()+".jpg");
+//				Files.write(rutaCompleta, bytes);
 				
-				cliente.setFoto(foto.getOriginalFilename());
+				Files.copy(foto.getInputStream(), routeAbsolutePath);
+				
+				flash.addFlashAttribute("info", "Foto subida correctamente" + uniqueFileName);
+				
+				cliente.setFoto(uniqueFileName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
