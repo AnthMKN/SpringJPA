@@ -32,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.service.IClienteService;
+import com.bolsadeideas.springboot.app.models.service.IUploadFileService;
 import com.bolsadeideas.springboot.app.util.paginator.PageRender;
 
 import jakarta.validation.Valid;
@@ -43,12 +44,23 @@ public class ClienteController {
 	@Autowired
 	private IClienteService clienteService;
 	
+	@Autowired
+	private IUploadFileService uploadFileService;
+	
 	private final Logger log= LoggerFactory.getLogger(getClass());
 	
 	private final static String UPLOADS_FOLDER = "uploads";
 	
 	@GetMapping(value="/uploads/{fileName:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String fileName){
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = uploadFileService.load(fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; fileName=\""+ recurso.getFilename()+"\"").body(recurso);
 	}
@@ -112,30 +124,40 @@ public class ClienteController {
 
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes flash, SessionStatus status, @RequestParam("file") MultipartFile foto) {
+		
+		
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "form";
 		}
 		
 		if(!foto.isEmpty()) {
-//			Path directorioRerurso = Paths.get("src//main//resources//static//uploads");
-//			String routePath = directorioRerurso.toFile().getAbsolutePath();
 			
-			//String routePath = "C://Temp//uploads";
-			
-			if(cliente.getId()!=null 
-					&& cliente.getId()>0 
-					&& cliente.getFoto().length()>0) {
-				Path routePath = Paths.get(UPLOADS_FOLDER).resolve(cliente.getFoto()).toAbsolutePath();
-				File archivo = routePath.toFile();
-				if(archivo.exists() && archivo.canRead()) {
-					archivo.delete();
-				}
+			if(cliente.getId() != null 
+					&& cliente.getId()> 0 
+					&& cliente.getFoto() != null
+					&& cliente.getFoto().length() > 0) {
+				
+				uploadFileService.delete(cliente.getFoto());
+				
 			}
+			String uniqueFileName = null;
+				
+			try {
+				uniqueFileName = uploadFileService.copy(foto);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+			Path routePath = Paths.get(UPLOADS_FOLDER).resolve(uniqueFileName);
+			Path routeAbsolutePath = routePath.toAbsolutePath();
+			
 			
 			flash.addFlashAttribute("info","Has subido correctamente " + uniqueFileName);
+			
+			cliente.setFoto(uniqueFileName);
 		}
-		
+
 		String mensajeFlash = (cliente.getId() != null) ? "Cliente editado con éxito!" : "Cliente creado con éxito!";
 
 		clienteService.save(cliente);
@@ -148,23 +170,15 @@ public class ClienteController {
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 
 		if (id > 0) {
-			
 			Cliente cliente = clienteService.findOne(id);
 			
 			clienteService.delete(id);
-			
 			flash.addFlashAttribute("success", "Cliente eliminado con éxito!");
 			
-			Path routePath = Paths.get(UPLOADS_FOLDER).resolve(cliente.getFoto()).toAbsolutePath();
-			File archivo = routePath.toFile();
-			if(archivo.exists() && archivo.canRead()) {
-				if(archivo.delete()) {
-					flash.addFlashAttribute("info","La foto: " + cliente.getFoto() + " ha sido eliminada con éxito.");
-				}
+			if(uploadFileService.delete(cliente.getFoto())) {
+				flash.addFlashAttribute("info","Foto " + cliente.getFoto() + " eliminada con exito.");
 			}
-			
-			
-			
+				
 		}
 		return "redirect:/listar";
 	}

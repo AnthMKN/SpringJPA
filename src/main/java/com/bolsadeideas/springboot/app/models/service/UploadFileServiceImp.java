@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.app.models.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -11,11 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
 public class UploadFileServiceImp implements IUploadFileService {
 	
 	private final Logger log= LoggerFactory.getLogger(getClass());
+	
 	private final static String UPLOADS_FOLDER = "uploads";
 
 	@Override
@@ -23,7 +28,6 @@ public class UploadFileServiceImp implements IUploadFileService {
 
 		Path pathFoto = getPath(fileName);
 		log.info("pathFoto:" + pathFoto);
-		
 		Resource recurso = null;
 		
 		recurso = new UrlResource(pathFoto.toUri());
@@ -39,14 +43,9 @@ public class UploadFileServiceImp implements IUploadFileService {
 	public String copy(MultipartFile file) throws IOException{
 		
 		String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-		Path routePath = Paths.get(uniqueFileName);	
-		log.info("routePath:" + routePath);
-
+		Path routePath = getPath(uniqueFileName);	
 		
-	
-//			byte[] bytes = foto.getBytes();
-//			Path rutaCompleta = Paths.get(routePath + "//" + cliente.getId()+cliente.getNombre()+".jpg");
-//			Files.write(rutaCompleta, bytes);
+		log.info("routePath:" + routePath);
 		
 		Files.copy(file.getInputStream(), routePath);
 		
@@ -55,12 +54,35 @@ public class UploadFileServiceImp implements IUploadFileService {
 
 	@Override
 	public boolean delete(String filename) {
-		// TODO Auto-generated method stub
+		
+		Path routePath = getPath(filename);
+		File archivo = routePath.toFile();
+		
+		if(archivo.exists() && archivo.canRead()) {
+			if(archivo.delete()) {
+				return true;
+			}
+		}	
+		
 		return false;
 	}
 	
 	public Path getPath(String fileName) {
 		return Paths.get(UPLOADS_FOLDER).resolve(fileName).toAbsolutePath();
+	}
+
+	@Override
+	public void deleteAll() {
+		
+		FileSystemUtils.deleteRecursively(Paths.get(UPLOADS_FOLDER).toFile());
+		
+	}
+
+	@Override
+	public void init() throws IOException {
+		
+		Files.createDirectory(Paths.get(UPLOADS_FOLDER));
+		
 	}
 
 }
