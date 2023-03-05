@@ -23,3 +23,12 @@ INSERT INTO productos (id, nombre, precio, create_at) VALUES(3,'Nintendo Switch'
 INSERT INTO productos (id, nombre, precio, create_at) VALUES(4,'PS5',550,'2023-03-01');
 INSERT INTO productos (id, nombre, precio, create_at) VALUES(5,'Asus VIVOBOOK',1099,'2023-03-01');
 INSERT INTO productos (id, nombre, precio, create_at) VALUES(6,'Razer Viper',120,'2023-03-01');
+
+INSERT INTO facturas (descripcion, observaciones, cliente_id, create_at) VALUES('Factura equipos de oficina', null, 1, NOW());
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1, 1, 1);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(2, 1, 4);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1, 1, 5);
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1, 1, 6);
+
+INSERT INTO facturas (descripcion, observaciones, cliente_id, create_at) VALUES('Factura consola', null, 1, NOW());
+INSERT INTO facturas_items (cantidad, factura_id, producto_id) VALUES(1, 2, 3);

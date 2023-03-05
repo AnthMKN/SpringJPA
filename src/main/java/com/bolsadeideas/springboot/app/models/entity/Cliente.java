@@ -119,7 +119,7 @@ public class Cliente implements Serializable {
 	}
 
 	public void addFactura(Factura factura) {
-		this.facturas.add(factura);
+		facturas.add(factura);
 	}
 
 
