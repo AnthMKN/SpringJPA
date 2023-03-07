@@ -25,6 +25,8 @@ import com.bolsadeideas.springboot.app.models.entity.ItemFactura;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
 import com.bolsadeideas.springboot.app.models.service.IClienteService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/factura")
 @SessionAttributes("factura")
@@ -35,8 +37,26 @@ public class FacturaController {
 	
 	private final Logger log = LoggerFactory.getLogger(getClass());
 	
+	@GetMapping("/ver/{id}")
+	public String ver(@PathVariable(value="id") Long id,
+			Model model,
+			RedirectAttributes flash) {
+		Factura factura = clienteService.findFacturaById(id);
+		
+		if(factura == null) {
+			flash.addAttribute("error", "La factura no existe en la base de datos");
+			return "redirect:/listar";
+		}
+		model.addAttribute("factura", factura);
+		model.addAttribute("titulo", "Factura: " .concat(factura.getDescripcion()));
+		
+		
+		return "factura/ver";
+	}
+	
+	
 	@GetMapping("/form/{clienteId}")
-	public String crear (@PathVariable(value="clienteId") Long clienteId,
+	public String crear(@PathVariable(value="clienteId") Long clienteId,
 			Map<String, Object> model,
 			RedirectAttributes flash) {
 		
@@ -62,7 +82,7 @@ public class FacturaController {
 	}
 	
 	@PostMapping("/form")
-	public String guardar(Factura factura,
+	public String guardar(@Valid Factura factura,
 			BindingResult result,
 			Model model,
 			@RequestParam(name="item_id[]", required=false) Long[] itemId,
