@@ -90,7 +90,7 @@ public class FacturaController {
 			RedirectAttributes flash,
 			SessionStatus status){
 		
-		if(result.hasErrors()) {
+		/*if(result.hasErrors()) {
 			model.addAttribute("titulo","Crear factura");
 			return "factura/form";
 		}
@@ -99,6 +99,15 @@ public class FacturaController {
 			model.addAttribute("titulo", "Crear factura");
 			model.addAttribute("error","Error: La factura debe tener al menos un producto");
 			return "factura/form";
+		}*/
+		
+		if(result.hasErrors() || itemId == null || itemId.length == 0) {
+		    model.addAttribute("titulo", "Crear factura");
+		    if(itemId == null || itemId.length == 0) {
+		    	model.addAttribute("titulo", "Crear factura");
+		        model.addAttribute("error", "Error: La factura debe tener al menos un producto");
+		    }
+		    return "factura/form";
 		}
 		
 		for(int i = 0; i < itemId.length; i++) {
