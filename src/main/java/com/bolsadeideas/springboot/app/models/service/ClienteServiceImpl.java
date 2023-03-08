@@ -81,7 +81,7 @@ public class ClienteServiceImpl implements IClienteService {
 	@Transactional(readOnly =true)
 	public Producto findProductoById(Long id) {
 		
-		return productoDao.findById(id).orElse(null);
+		return (Producto) productoDao.findById(id).orElse(null);
 	}
 
 	@Override
@@ -91,6 +91,12 @@ public class ClienteServiceImpl implements IClienteService {
 		return facturaDao.findById(id).orElse(null);	
 	}
 	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Producto> findAllProducts(Pageable pageable) {
+		
+		return productoDao.findAll(pageable);
+	}
 	
 	
 	
