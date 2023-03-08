@@ -13,6 +13,13 @@
 					<a class="btn btn-light btn-xs" th:href="@{'/ver/' + ${factura.cliente.id}}" th:text="Volver"></a>
 				</h4>
 				
+				<div class="form-group row">
+						<label for="buscar_producto" class="col-sm-2 col-form-label" th:text="'Buscar producto'"></label>
+						<div class="col-sm-6">
+							<input type="text" name="buscar_producto" id="buscar_producto" class="form-control" />
+						</div>
+					</div>
+				
 				<form th:action="@{/factura/form}" th:object="${factura}" method="post">
 					
 					<div class="form-group row">
@@ -38,12 +45,7 @@
 						</div>
 					</div>
 					
-					<div class="form-group row">
-						<label for="buscar_producto" class="col-sm-2 col-form-label" th:text="'Buscar producto'"></label>
-						<div class="col-sm-6">
-							<input type="text" name="buscar_producto" id="buscar_producto" class="form-control" />
-						</div>
-					</div>
+					
 					
 					<table th:replace="~{factura/plantilla-items :: itemsFactura}"></table>
 					

@@ -36,7 +36,6 @@ public class Factura implements Serializable{
 	private String descripcion;
 	private String observaciones;
 	
-	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM--dd")
 	@Column(name="create_at")
@@ -113,6 +112,16 @@ public class Factura implements Serializable{
 		return total;
 	}
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Factura [id=" + id + ", descripcion=" + descripcion + ", observaciones=" + observaciones + ", createAt="
+				+ createAt + ", cliente=" + cliente + ", items=" + items + "]";
+	}
+
+
+
 	private static final long serialVersionUID = 1L;
 	
 }

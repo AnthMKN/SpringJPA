@@ -100,11 +100,10 @@ public class FacturaController {
 			model.addAttribute("error","Error: La factura debe tener al menos un producto");
 			return "factura/form";
 		}*/
-		
+
 		if(result.hasErrors() || itemId == null || itemId.length == 0) {
 		    model.addAttribute("titulo", "Crear factura");
 		    if(itemId == null || itemId.length == 0) {
-		    	model.addAttribute("titulo", "Crear factura");
 		        model.addAttribute("error", "Error: La factura debe tener al menos un producto");
 		    }
 		    return "factura/form";
