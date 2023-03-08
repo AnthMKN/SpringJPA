@@ -97,6 +97,18 @@ public class ClienteServiceImpl implements IClienteService {
 		
 		return productoDao.findAll(pageable);
 	}
+
+	@Override
+	public void saveProducto(Producto producto) {
+		
+		productoDao.save(producto);
+	}
+
+	@Override
+	public Producto findOneProduct(Long id) {
+		// TODO Auto-generated method stub
+		return (Producto) productoDao.findById(id).orElse(null);
+	}
 	
 	
 	

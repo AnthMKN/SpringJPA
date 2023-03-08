@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.bolsadeideas.springboot.app.models.entity.Cliente;
 import com.bolsadeideas.springboot.app.models.entity.Producto;
 
 public interface IProductoDao extends PagingAndSortingRepository<Producto, Long> {
@@ -17,7 +15,7 @@ public interface IProductoDao extends PagingAndSortingRepository<Producto, Long>
 	
 	List<Producto> findAll();
 
-	void save(Cliente cliente);
+	void save(Producto producto);
 
 	Optional <Object> findById(Long id);
 

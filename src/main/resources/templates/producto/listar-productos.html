@@ -12,7 +12,7 @@
 		<div class="card-body">
 
 			<h4 class="card-title">
-				<a th:href="@{/form}" class="btn btn-primary">crear producto</a>
+				<a th:href="@{producto/form}" class="btn btn-primary">crear producto</a>
 			</h4>
 
 			<table class="table table-striped">
@@ -20,22 +20,18 @@
 					<tr>
 						<th>nombre</th>
 						<th>precio</th>
-						<!--<th>ver</th>
+						<th>ver</th>
 						<th>editar</th>
-						<th>eliminar</th>-->
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="producto: ${productos}">
 						<td th:text="${producto.nombre}"></td>
 						<td th:text="${producto.precio} + €"></td>
-						<!--<td><a class="btn btn-primary btn-sm"
-							th:href="@{/ver/} + ${producto.id}" th:text="'ver'"></a></td>
 						<td><a class="btn btn-primary btn-sm"
-							th:href="@{/form/} + ${producto.id}" th:text="'editar'"></a></td>
-						<td><a class="btn btn-danger btn-sm"
-							th:href="@{/eliminar/} + ${producto.id}" th:text="'eliminar'"
-							onclick="return confirm('Estás seguro que quieres eliminar?');"></a></td>-->
+							th:href="@{/producto/ver/} + ${producto.id}" th:text="'ver'"></a></td>
+						<td><a class="btn btn-primary btn-sm"
+							th:href="@{/producto/form/} + ${producto.id}" th:text="'editar'"></a></td>
 					</tr>
 				</tbody>
 

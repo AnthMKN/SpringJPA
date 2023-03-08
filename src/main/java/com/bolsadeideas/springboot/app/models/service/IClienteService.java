@@ -30,4 +30,8 @@ public interface IClienteService {
 	public Factura findFacturaById(Long id);
 	
 	public Page<Producto> findAllProducts(Pageable pageable);
+	
+	public void saveProducto(Producto producto);
+	
+	public Producto findOneProduct(Long id);
 }

@@ -21,7 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,22 +41,66 @@ import com.bolsadeideas.springboot.app.util.paginator.PageRender;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/producto")
 @SessionAttributes("producto")
 public class ProductoController {
 
     @Autowired
     private IClienteService clienteService;
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String listarProductos(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-        Pageable pageRequest = PageRequest.of(page, 10);
-        Page<Producto> productos = clienteService.findAllProducts(pageRequest);
-        
-        PageRender<Producto> pageRender = new PageRender<Producto>("/", productos);
-        
-        model.addAttribute("titulo", "Listado de productos");
-        model.addAttribute("productos", productos);
-        model.addAttribute("page", pageRender);
-        return "listar-productos";
+
+    
+    @RequestMapping(value = "/form")
+	public String crear(Map<String, Object> model) {
+
+		Producto producto = new Producto();
+		model.put("producto", producto);
+		model.put("titulo", "Formulario de Producto");
+		return "producto/form";
+	}
+    
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    public String guardarProducto(@Valid @ModelAttribute Producto producto, BindingResult result, RedirectAttributes flash) {
+        if (result.hasErrors()) {
+            return "/form";
+        }
+        clienteService.saveProducto(producto);
+        flash.addFlashAttribute("success", "El producto se ha guardado exitosamente.");
+        return "redirect:/";
     }
+    
+    @GetMapping(value="/ver/{id}")
+	public String ver(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+		
+    	Producto producto = clienteService.findOneProduct(id);
+		if(producto == null) {
+			flash.addFlashAttribute("Error","Producto no encontrado");
+			return "redirect:/";
+		}
+		
+		model.put("producto", producto);
+		model.put("titulo", "Detalles del producto" +" "+ producto.getNombre());
+		
+		return "producto/ver";
+	}
+    
+    @RequestMapping(value = "/form/{id}")
+	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+
+		Producto producto = null;
+
+		if (id > 0) {
+			producto = clienteService.findOneProduct(id);
+			if (producto == null) {
+				flash.addFlashAttribute("error", "El ID del producto no existe en la BBDD!");
+				return "redirect:/";
+			}
+		} else {
+			flash.addFlashAttribute("error", "El ID del producto no puede ser cero!");
+			return "redirect:/";
+		}
+		model.put("producto", producto);
+		model.put("titulo", "Editar Producto");
+		return "producto/form";
+	}
 }

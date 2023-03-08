@@ -12,7 +12,7 @@
 			<div class="card-body">
 
 				<h4 class="card-title">
-					<a th:href="@{/form}" class="btn btn-primary">crear cliente</a>
+					<a th:href="@{/cliente/form}" class="btn btn-primary">crear cliente</a>
 				</h4>
 
 				<table class="table table-striped">
@@ -39,11 +39,11 @@
 							<td><a class="btn btn-primary btn-sm"
 								th:href="@{'/factura/form/' + ${cliente.id}}" th:text="'Crear factura'"></a></td>
 							<td><a class="btn btn-primary btn-sm"
-								th:href="@{/ver/} + ${cliente.id}" th:text="'ver'"></a></td>
+								th:href="@{/cliente/ver/} + ${cliente.id}" th:text="'ver'"></a></td>
 							<td><a class="btn btn-primary btn-sm"
-								th:href="@{/form/} + ${cliente.id}" th:text="'editar'"></a></td>
+								th:href="@{/cliente/form/} + ${cliente.id}" th:text="'editar'"></a></td>
 							<td><a class="btn btn-danger btn-sm"
-								th:href="@{/eliminar/} + ${cliente.id}" th:text="'eliminar'"
+								th:href="@{/cliente/eliminar/} + ${cliente.id}" th:text="'eliminar'"
 								onclick="return confirm('Est�s seguro que quieres eliminar?');"></a></td>
 						</tr>
 					</tbody>

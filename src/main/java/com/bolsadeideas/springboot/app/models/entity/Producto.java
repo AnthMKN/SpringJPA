@@ -27,6 +27,8 @@ public class Producto implements Serializable{
 	
 	private Double precio;
 	
+	private String descripcion;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="create_at")
 	private Date createAt;
@@ -67,7 +69,13 @@ public class Producto implements Serializable{
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-	
-	
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 	
 }
