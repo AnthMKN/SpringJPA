@@ -161,6 +161,8 @@ public class ClienteController {
 			flash.addFlashAttribute("info","Has subido correctamente " + uniqueFileName);
 			
 			cliente.setFoto(uniqueFileName);
+		}else {
+			cliente.setFoto("");
 		}
 
 		String mensajeFlash = (cliente.getId() != null) ? "Cliente editado con éxito!" : "Cliente creado con éxito!";

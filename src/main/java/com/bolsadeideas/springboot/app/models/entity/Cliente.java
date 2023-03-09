@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -42,6 +43,8 @@ public class Cliente implements Serializable {
 	@NotEmpty
 	@Email
 	private String email;
+	
+	private String password;
 
 	@NotNull
 	@Column(name = "create_at")
@@ -140,6 +143,20 @@ public class Cliente implements Serializable {
 
 	public void setRol(Rol i) {
 		this.rol = i;
+	}
+	
+	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+	}
+
+	public boolean checkPassword(String password) {
+		return BCrypt.checkpw(password, this.password);
 	}
 
 	private static final long serialVersionUID = 1L;

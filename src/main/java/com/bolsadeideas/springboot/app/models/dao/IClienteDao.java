@@ -18,4 +18,5 @@ public interface IClienteDao extends PagingAndSortingRepository<Cliente, Long>{
 
 	void deleteById(Long id);
 
+	Cliente findByEmail(String email);
 }

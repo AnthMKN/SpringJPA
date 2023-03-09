@@ -106,11 +106,14 @@ public class ClienteServiceImpl implements IClienteService {
 
 	@Override
 	public Producto findOneProduct(Long id) {
-		// TODO Auto-generated method stub
+		
 		return (Producto) productoDao.findById(id).orElse(null);
 	}
-	
-	
-	
+
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente findByEmail(String email) {
+	    return clienteDao.findByEmail(email);
+	}
 	
 }
