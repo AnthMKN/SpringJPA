@@ -47,8 +47,25 @@ public class ProductoController {
 
     @Autowired
     private IClienteService clienteService;
+    
+    @Autowired
+	private IUploadFileService uploadFileService;
 
-
+    private final static String UPLOADS_FOLDER = "uploads";
+    
+    @GetMapping(value="/uploads/{fileName:.+}")
+	public ResponseEntity<Resource> verFoto(@PathVariable String fileName){
+		
+		Resource recurso = null;
+		
+		try {
+			recurso = uploadFileService.load(fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; fileName=\""+ recurso.getFilename()+"\"").body(recurso);
+	}
     
     @RequestMapping(value = "/form")
 	public String crear(Map<String, Object> model) {
@@ -60,10 +77,42 @@ public class ProductoController {
 	}
     
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String guardarProducto(@Valid @ModelAttribute Producto producto, BindingResult result, RedirectAttributes flash) {
+    public String guardarProducto(@Valid @ModelAttribute Producto producto, BindingResult result, RedirectAttributes flash, SessionStatus status, @RequestParam("file") MultipartFile foto) {
+    	
         if (result.hasErrors()) {
             return "/form";
         }
+        
+        if(!foto.isEmpty()) {
+
+        	if(producto.getId() != null 
+        			&& producto.getId()> 0 
+        			&& producto.getFoto() != null
+        			&& producto.getFoto().length() > 0) {
+
+        		uploadFileService.delete(producto.getFoto());
+
+        	}
+        	String uniqueFileName = null;
+
+        	try {
+        		uniqueFileName = uploadFileService.copy(foto);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+
+        	Path routePath = Paths.get(UPLOADS_FOLDER).resolve(uniqueFileName);
+        	Path routeAbsolutePath = routePath.toAbsolutePath();
+
+
+        	flash.addFlashAttribute("info","Has subido correctamente " + uniqueFileName);
+
+        	producto.setFoto(uniqueFileName);
+        }else {
+        	producto.setFoto("");
+        }
+        
+        
         clienteService.saveProducto(producto);
         flash.addFlashAttribute("success", "El producto se ha guardado exitosamente.");
         return "redirect:/";

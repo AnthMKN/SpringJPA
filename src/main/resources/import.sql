@@ -20,30 +20,25 @@ INSERT INTO clientes (nombre, apellido, email, foto, create_at) VALUES('AAJDHF',
 INSERT INTO clientes (nombre, apellido, email, foto, create_at) VALUES('Nacho', 'Segura', 'profesor@bolsadeideas.com', '', '2023-02-18');
 INSERT INTO clientes (nombre, apellido, email, foto, create_at) VALUES('John', 'Doe', 'john.doe@gmail.com', '', '2017-08-28');
 
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Samsung S22',899,'2023-03-01','Movil de alta gama de Samsung');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('IPhone 14 pro',899,'2023-03-01','Movil de alta gama de Apple');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Nintendo Switch',899,'2023-03-01','Videoconsola de Nintento');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Asus VIVOBOOK',899,'2023-03-01','Portatil ASUS con pantalla OLED');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('PS5',899,'2023-03-01','Videoconsola de Sony');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Razer Viper',899,'2023-03-01','Raton de PC para e-sports');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Samsung S22',899,'2023-03-01','Movil de alta gama de Samsung');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('IPhone 14 pro',899,'2023-03-01','Movil de alta gama de Apple');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Nintendo Switch',899,'2023-03-01','Videoconsola de Nintento');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Asus VIVOBOOK',899,'2023-03-01','Portatil ASUS con pantalla OLED');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('PS5',899,'2023-03-01','Videoconsola de Sony');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Razer Viper',899,'2023-03-01','Raton de PC para e-sports');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Samsung S22',899,'2023-03-01','Movil de alta gama de Samsung');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('IPhone 14 pro',899,'2023-03-01','Movil de alta gama de Apple');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Nintendo Switch',899,'2023-03-01','Videoconsola de Nintento');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Asus VIVOBOOK',899,'2023-03-01','Portatil ASUS con pantalla OLED');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('PS5',899,'2023-03-01','Videoconsola de Sony');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Razer Viper',899,'2023-03-01','Raton de PC para e-sports');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Samsung S22',899,'2023-03-01','Movil de alta gama de Samsung');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('IPhone 14 pro',899,'2023-03-01','Movil de alta gama de Apple');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Nintendo Switch',899,'2023-03-01','Videoconsola de Nintento');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Asus VIVOBOOK',899,'2023-03-01','Portatil ASUS con pantalla OLED');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('PS5',899,'2023-03-01','Videoconsola de Sony');
-INSERT INTO productos (nombre, precio, create_at, descripcion) VALUES('Razer Viper',899,'2023-03-01','Raton de PC para e-sports');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Samsung S22',899,'2023-03-01','Movil de alta gama de Samsung','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('IPhone 14 pro',1400,'2023-03-01','Movil de alta gama de Apple','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Nintendo Switch',350,'2023-03-01','Videoconsola de Nintento','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Asus VIVOBOOK',870,'2023-03-01','Portatil ASUS con pantalla OLED','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('PS5',550,'2023-03-01','Videoconsola de Sony','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Razer Viper',120,'2023-03-01','Raton de PC para e-sports','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Samsung S22',899,'2023-03-01','Movil de alta gama de Samsung','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('IPhone 14 pro',1400,'2023-03-01','Movil de alta gama de Apple','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Nintendo Switch',350,'2023-03-01','Videoconsola de Nintento','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Asus VIVOBOOK',870,'2023-03-01','Portatil ASUS con pantalla OLED','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('PS5',550,'2023-03-01','Videoconsola de Sony','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Razer Viper',120,'2023-03-01','Raton de PC para e-sports','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Samsung S22',899,'2023-03-01','Movil de alta gama de Samsung','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('IPhone 14 pro',1400,'2023-03-01','Movil de alta gama de Apple','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Nintendo Switch',350,'2023-03-01','Videoconsola de Nintento','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Asus VIVOBOOK',870,'2023-03-01','Portatil ASUS con pantalla OLED','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('PS5',550,'2023-03-01','Videoconsola de Sony','');
+INSERT INTO productos (nombre, precio, create_at, descripcion, foto) VALUES('Razer Viper',120,'2023-03-01','Raton de PC para e-sports','');
+
 
 
 INSERT INTO facturas (descripcion, observaciones, cliente_id, create_at) VALUES('Factura equipos de oficina', null, 1, NOW());

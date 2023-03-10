@@ -13,10 +13,10 @@
 					<!--<a class="btn btn-primary btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}" th:text="'Crear factura'"></a>Este boton debe ser para editar el producto-->
 				</h4>
 				
-				<!--<img th:if="${#strings.length(cliente.foto)>0}" class="img-thumbnail rounded float-left" 
+				<img th:if="${#strings.length(producto.foto)>0}" class="img-thumbnail rounded float-left" 
 				style="max-width: 25%;" 
-				th:src="@{'/uploads/' + ${cliente.foto}}" 
-				th:alt="${cliente.foto}" />-->
+				th:src="@{'/uploads/' + ${producto.foto}}" 
+				th:alt="${producto.foto}" />
 				
 				<ul class="list-group">
 					<li class="list-group-item" th:text="'Modelo: ' + ${producto.nombre}"></li>

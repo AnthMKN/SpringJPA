@@ -29,6 +29,8 @@ public class Producto implements Serializable{
 	
 	private String descripcion;
 	
+	private String foto;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="create_at")
 	private Date createAt;
@@ -77,5 +79,15 @@ public class Producto implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+	
+	
 	
 }

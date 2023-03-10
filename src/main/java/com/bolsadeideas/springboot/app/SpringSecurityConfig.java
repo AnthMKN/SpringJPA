@@ -13,7 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.bolsadeideas.springboot.app.auth.handler.LoginSuccessHandler;
 
 @Configuration
-
 public class SpringSecurityConfig {
 
 	@Autowired

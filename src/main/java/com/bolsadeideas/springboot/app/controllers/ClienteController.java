@@ -150,7 +150,7 @@ public class ClienteController {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de Cliente");
-			return "form";
+			return "/form";
 		}
 		
 		if(!foto.isEmpty()) {
@@ -184,7 +184,7 @@ public class ClienteController {
 
 		String mensajeFlash = (cliente.getId() != null) ? "Cliente editado con éxito!" : "Cliente creado con éxito!";
 
-		Rol rolUsuario = rolRepository.findByNombre("user");
+		Rol rolUsuario = rolRepository.findByNombre("USER");
 		cliente.setRol(rolUsuario);
 		
 		clienteService.save(cliente);
