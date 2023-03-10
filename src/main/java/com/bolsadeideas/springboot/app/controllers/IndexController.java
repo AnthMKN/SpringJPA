@@ -33,24 +33,8 @@ public class IndexController {
 		model.addAttribute("titulo", "Listado de productos");
 		model.addAttribute("productos", productos);
 		model.addAttribute("page", pageRender);
-		return "producto/listar-productos";
+		return "producto/listar-productos.html";
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-	    return "login";
-	}
-
-	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password) {
-		Cliente cliente = clienteService.findByEmail(email);
-		if (cliente != null && cliente.checkPassword(password)) {
-			
-			return "redirect:/";
-			
-		} else {
-			
-			return "redirect:/";
-		}
-	}
+	
 }

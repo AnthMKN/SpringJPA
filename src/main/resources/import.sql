@@ -1,7 +1,7 @@
 /* Populate tables */
 
-INSERT INTO roles (nombre) VALUES ('admin');
-INSERT INTO roles (nombre) VALUES ('user');
+INSERT INTO roles (nombre) VALUES ('ADMIN');
+INSERT INTO roles (nombre) VALUES ('USER');
 
 INSERT INTO clientes (nombre, apellido, email, foto, create_at) VALUES('Paco', 'Merlo', 'paco@JHG.COM', '', '2022-08-28');
 INSERT INTO clientes (nombre, apellido, email, foto, create_at) VALUES('Maria', 'Porro', 'maria@JHG.COM', '','2022-08-28');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{layout/layout :: head}"></head>
 
 	<body>
@@ -9,7 +9,7 @@
 			<div class="card bg-light" th:text="${titulo}"></div>
 			<div class="card-body">
 				
-				<h4 class="card-title">
+				<h4 sec:authorize="hasRole('ROLE_ADMIN')" class="card-title">
 					<a class="btn btn-primary btn-xs" th:href="@{'/factura/form/' + ${cliente.id}}" th:text="'Crear factura'"></a>
 				</h4>
 				
@@ -25,16 +25,16 @@
 					<li class="list-group-item" th:text="${cliente.createAt}"></li>		
 				</ul>
 				
-				<div th:if="${#lists.isEmpty(cliente.facturas)}" class="alert alert-info my-4" th:text="'No hay faturas para el cliente ' + ${cliente.nombre} + ' ' + ${cliente.apellido}"></div>
+				<div sec:authorize="hasRole('ROLE_ADMIN')" th:if="${#lists.isEmpty(cliente.facturas)}" class="alert alert-info my-4" th:text="'No hay faturas para el cliente ' + ${cliente.nombre} + ' ' + ${cliente.apellido}"></div>
 					
-					<table th:if="${not #lists.isEmpty(cliente.facturas)}" class="table table-bordered table-spriped my-4">
+					<table sec:authorize="hasRole('ROLE_ADMIN')" th:if="${not #lists.isEmpty(cliente.facturas)}" class="table table-bordered table-spriped my-4">
 						<thead class="thead-dark">
 							<tr>
 								<th>folio</th>
 								<th>descripcion</th>
 								<th>fecha</th>
 								<th>total</th>
-								<th>ver</th>
+								<th sec:authorize="hasRole('ROLE_ADMIN')"ver</th>
 							</tr>
 						</thead>
 						<tbody>
